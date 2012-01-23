@@ -10,15 +10,16 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 require 'rake'
+require 'yard'
+require 'rspec/core/rake_task'
 
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
-  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "jogger"
   gem.homepage = "http://github.com/jayniz/jogger"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Pacer traversals for lazy people}
+  gem.description = %Q{Allows to group traversal fragments/pipes to named traversals and call them like they were pacer pipes.}
   gem.email = "jannis@gmail.com"
   gem.authors = ["Jannis Hermanns"]
   # dependencies defined in Gemfile
@@ -32,22 +33,23 @@ Rake::TestTask.new(:test) do |test|
   test.verbose = true
 end
 
-require 'rcov/rcovtask'
-Rcov::RcovTask.new do |test|
-  test.libs << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-  test.rcov_opts << '--exclude "gems/*"'
+#
+#  RSpec
+#
+task :default => [:spec]
+task :test => [:spec]
+desc "run spec tests"
+RSpec::Core::RakeTask.new('spec') do |t|
+  t.pattern = 'spec/**/*_spec.rb'
 end
 
-task :default => :test
 
-require 'rdoc/task'
-Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
-
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "jogger #{version}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+#
+#  Yard
+#
+desc 'Generate documentation'
+YARD::Rake::YardocTask.new do |t|
+  t.files   = ['lib/**/*.rb', '-', 'LICENSE']
+  t.options = ['--main', 'README.md', '--no-private']
 end
+
