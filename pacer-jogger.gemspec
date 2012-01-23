@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/jogger.rb",
+    "pacer-jogger.gemspec",
     "spec/lib/jogger_spec.rb",
     "spec/spec_helper.rb"
   ]
