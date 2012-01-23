@@ -2,21 +2,25 @@
 # Allows to formulate traversals by using predefined
 # named traversals. Also allows for method chaining.
 #
-# All named traversals are defined in {PacerTraversal::NamedTraversals}
-# and new ones can be added using {Jogger.add_traversal}.
+# All named traversals are defined in {Jogger::NamedTraversals},
+# so that's where you should define your own.
 #
 # Instances have a @current_traversal variable that is
-# updated with each chained call of {#traverse}.
-#
-# Beware, it also uses method missing to delegate unknown methods to
-# the current traversal. So after you're done chaining things, you can
-# do more stuff with it after you're done, e.g. call count on it:
+# updated with each call. Beware: Jogger uses method missing to
+# delegate unknown methods to the current traversal. So after
+# you're done chaining things, you can do more stuff with it,
+# e.g. call count on it:
 #
 #     t = Jogger.new(some_node)
-#     t.traverse(:some).traverse(:where).count
+#     t.go.some.where.count
 #
-# So everything except for {#traverse} is called on the
-# @current_traversal
+# Everything except for {Jogger#result} is called on the
+# `@current_traversal`, so what you really want to do to get the
+# count of your traversal would be
+#
+#     t = Jogger.new(some_node)
+#     t.go.some.where.result.count
+#
 class Jogger
 
 
@@ -40,7 +44,7 @@ class Jogger
   # This is useful for more traversals after named routes.
   #
   # @return [Jogger] Returns itself so you can chain multiple
-  # {#traverse} calls
+  #   calls just like you would do with pacer
   def method_missing(method, *args, &block)
     begin
       traversal_args = [method, args].flatten.compact
