@@ -1,19 +1,22 @@
-# Jogger
+# Jogger - almost like named scopes
 
 Jogger is a JRuby library that enables lazy people to do very expressive graph traversals with the great [pacer gem](https://github.com/pangloss/pacer). If you don't know what the pacer gem is, you should probably not be here and check pacer out first.
 
 # What does it do?
+
+Remember the _named scopes_ from back in the days when you were using rails? They were handy, weren't they? Jogger gives you _named traversals_ and is a little bit like named scopes. Jogger groups multiple pacer traversals together and give them a name. Pacer traversals are are like pipes. What are pipes? [Pipes are great!](http://markorodriguez.com/2011/08/03/on-the-nature-of-pipes/)!
+
+The most important conceptual difference is, that the order in which named traversals are called matter, while it usually doesn't matter in which order you call named scopes.
 
 Jogger does two things:
 
 1. Keep the current pacer traversal in an instance variable and allow for method chaining as well as changing the internal state of the traversal
 2. Allows you to group together parts of a traversal (single pipes or groups of them) and give them a name. Named traversals. Helps to stay DRY.
 
-The former is really just a syntax thing, whereas the latter can help you a great deal modeling semantics of your business logic as parts of traversals. These sentences confuse me, so I will give you:
+The former is really just a syntax thing, whereas the latter can help you a great deal modeling semantics of your business logic as parts of traversals. These sentences confuse me, so I will give you hands on examples:
 
-# Example time!
 
-## 1. Keep the current traversal
+# Feature #1 (not so important): keep the current traversal
 
 To demonstrate why point 1) in the list above can be useful, look at this traversal. It helps me find out what movies my female friends like the most, so I can impress them in a conversation:
 
@@ -42,7 +45,7 @@ See what I did there? Jogger keeps the current pacer traversal and forwards all 
 
 Just saying, you can chain your methods, but I don't like it cause I can only focus on 72 characters per line at max. If you want the current traversal, just call `result` on your Jogger instance.
 
-## 2. Named traversals
+## Feature #2 (pretty useful): Named Traversals
 
 So that traversal above, traversing from a node to all its friends, is pretty simple, but it could be simpler. Especially if it does things that you want to reuse in many other places. How cool would it be if I just had to write this:
 
@@ -50,7 +53,7 @@ So that traversal above, traversing from a node to all its friends, is pretty si
     t.friends(:female)
     t.top_list(:movies)
 
-No problem. Just define a named traversal that does it.
+No problem. Just define named traversals that aggregate different pipes and give them a name:
 
     class Jogger
       module NamedTraversals
