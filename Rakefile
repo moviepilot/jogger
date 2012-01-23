@@ -15,7 +15,7 @@ require 'rspec/core/rake_task'
 
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
-  gem.name = "jogger"
+  gem.name = "pacer-jogger"
   gem.homepage = "http://github.com/jayniz/jogger"
   gem.license = "MIT"
   gem.summary = %Q{Pacer traversals for lazy people}
