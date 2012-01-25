@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jannis Hermanns"]
-  s.date = "2012-01-23"
+  s.date = "2012-01-25"
   s.description = "Allows to group traversal fragments/pipes to named traversals and call them like they were pacer pipes."
   s.email = "jannis@gmail.com"
   s.extra_rdoc_files = [
