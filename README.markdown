@@ -99,7 +99,7 @@ I gave YARD a shot, so to open the documentation in your browser just do this in
 
     yard server & sleep 3 && open http://localhost:8808/docs/file/README.markdown
 
-Or you can (browse the documentation online)[http://rubydoc.info/github/jayniz/jogger/master/frames]
+Or you can [browse the documentation online](http://rubydoc.info/github/jayniz/jogger/master/frames)
 
 # Named traversals - The pacer way
 
@@ -145,3 +145,9 @@ You can then go ahead and fetch:
     t.out(Movie).female_likers
 
 To wrap it up, using Jogger to do named traversals is for the super lazy. If you use pacer exclusively and have more complicated structures it would probably make more sense to create your named traversals in the design of your domain logic and do it purely with pacer. You can still use Jogger to traverse these routes. If you want to share common traversal patterns between different models it might be easier to do with Jogger.
+
+== License
+
+Jogger is released under the MIT license:
+
+* http://www.opensource.org/licenses/MIT
