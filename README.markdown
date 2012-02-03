@@ -146,7 +146,7 @@ You can then go ahead and fetch:
 
 To wrap it up, using Jogger to do named traversals is for the super lazy. If you use pacer exclusively and have more complicated structures it would probably make more sense to create your named traversals in the design of your domain logic and do it purely with pacer. You can still use Jogger to traverse these routes. If you want to share common traversal patterns between different models it might be easier to do with Jogger.
 
-== License
+# License
 
 Jogger is released under the MIT license:
 
