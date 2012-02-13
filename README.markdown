@@ -1,24 +1,28 @@
-# Jogger - almost like named scopes
+Jogger - almost like named_scopes
+=================================
 
-Jogger is a JRuby library that enables lazy people to do very expressive graph traversals with the great [pacer gem](https://github.com/pangloss/pacer). If you don't know what the pacer gem is, you should probably not be here and check pacer out first.
+Jogger is a JRuby library that enables lazy people to do very expressive graph traversals with the great [pacer gem](https://github.com/pangloss/pacer). If you don't know what the pacer gem is, you should probably not be here and check pacer out first. And don't miss the pacer section at the end of text.
 
-# What does Jogger do? TL;DR
+What does Jogger do? TL;DR
+==========================
 
-Remember the _named scopes_ from back in the days when you were using rails? Jogger gives you _named traversals_ and is a little bit like named scopes. Jogger groups multiple pacer traversals together and give them a name. Pacer traversals are are like pipes. What are pipes? [Pipes are great!](http://markorodriguez.com/2011/08/03/on-the-nature-of-pipes/)!
+Remember the _named_scopes_ from back in the days when you were using rails? Jogger gives you _named traversals_ and is a little bit like named scopes. Jogger groups multiple pacer traversals together and give them a name. Pacer traversals are are like pipes. What are pipes? [Pipes are great!](http://markorodriguez.com/2011/08/03/on-the-nature-of-pipes/)!
 
 The most important conceptual difference is, that the order in which named traversals are called matter, while it usually doesn't matter in which order you call named scopes.
 
-# Jogger does two things:
+Jogger does two things:
+=======================
 
 1. Keep the current pacer traversal in an instance variable and allow for method chaining as well as changing the internal state of the traversal
 2. Allows you to group together parts of a traversal (single pipes or groups of them) and give them a name. Named traversals. Helps to stay DRY.
 
-The former is really just a syntax thing, whereas the latter can help you a great deal modeling semantics of your business logic as parts of traversals. These sentences confuse me, so I will give you a TL;DR gif followed by some hands on examples.
+The former is really just a syntax thing, whereas the latter can help you a great deal modeling semantics of your business logic as parts of traversals. Let's jog!
 
 ![Run](http://dl.dropbox.com/u/1953503/gifs/vizPZ.gif)
 
 
-# Feature #1: keep the current traversal
+Feature #1: keep the current traversal
+--------------------------------------
 
 To demonstrate why point 1) in the list above can be useful, look at this traversal. It helps me find out what movies my female friends like the most, so I can impress them in a conversation:
 
@@ -47,7 +51,8 @@ See what I did there? Jogger keeps the current pacer traversal and forwards all 
 
 Just saying, you can chain your methods, but I don't like it cause I can only focus on 72 characters per line at max. If you want the current traversal, just call `result` on your Jogger instance.
 
-## Feature #2: Named Traversals
+Feature #2: Named Traversals
+----------------------------
 
 So that traversal above, traversing from a node to all its friends, is pretty simple, but it could be simpler. Especially if it does things that you want to reuse in many other places. How cool would it be if I just had to write this:
 
@@ -55,7 +60,7 @@ So that traversal above, traversing from a node to all its friends, is pretty si
     t.friends(:female)
     t.top_list(:movies)
 
-No problem. Just define named traversals that aggregate different pipes and give them a name:
+No problem. Just define named traversals that aggregate different pipes and give them a name. You have to put your traversal into Jogger's `NamedTraverals` module.
 
     class Jogger
       module NamedTraversals
@@ -75,9 +80,12 @@ No problem. Just define named traversals that aggregate different pipes and give
       end
     end
 
+Your methods have to be able to take at least one parameter: the current traversal. It represents the current traversal state of your `Jogger` instance. Your traversal can then modify this traversal and must return it. It will become your Jogger instance's new state.
+
 These are silly examples, but if you look at your traversals I guarantee that you will find repeated patterns all over the place, and Jogger can help you stop repeating these and making the actual traversals much easier on the eyes.
 
-# Installation
+Installation
+============
 
 First, you need to load pacer and whatever graph db connector you need (we use neo4j, by the way) and define your named traversals as above. Jogger doesn't include these on purpose. Then, you have to 
 
@@ -93,7 +101,8 @@ or for your Gemfile
 
 That's it!
 
-# Documentation
+Documentation
+=============
 
 I gave YARD a shot, so to open the documentation in your browser just do this in the jogger directory:
 
@@ -101,7 +110,8 @@ I gave YARD a shot, so to open the documentation in your browser just do this in
 
 Or you can [browse the documentation online](http://rubydoc.info/github/jayniz/jogger/master/frames)
 
-# Named traversals - The pacer way
+Named traversals - The pacer way
+================================
 
 You can implement feature #2 purely in pacer, if you like. For example, you could express
 
@@ -146,7 +156,8 @@ You can then go ahead and fetch:
 
 To wrap it up, using Jogger to do named traversals is for the super lazy. If you use pacer exclusively and have more complicated structures it would probably make more sense to create your named traversals in the design of your domain logic and do it purely with pacer. You can still use Jogger to traverse these routes. If you want to share common traversal patterns between different models it might be easier to do with Jogger.
 
-# License
+License
+=======
 
 Jogger is released under the MIT license:
 
