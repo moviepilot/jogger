@@ -3,14 +3,11 @@ Jogger - almost like named_scopes
 
 Jogger is a JRuby library that enables lazy people to do very expressive graph traversals with the great [pacer gem](https://github.com/pangloss/pacer). If you don't know what the pacer gem is, you should probably not be here and check pacer out first. And don't miss the pacer section at the end of text.
 
-What does Jogger do? TL;DR
-==========================
-
 Remember the _named_scopes_ from back in the days when you were using rails? Jogger gives you _named traversals_ and is a little bit like named scopes. Jogger groups multiple pacer traversals together and give them a name. Pacer traversals are are like pipes. What are pipes? [Pipes are great!](http://markorodriguez.com/2011/08/03/on-the-nature-of-pipes/)!
 
 The most important conceptual difference is, that the order in which named traversals are called matter, while it usually doesn't matter in which order you call named scopes.
 
-Jogger does two things:
+TL; DR: Jogger does two things:
 =======================
 
 1. Keep the current pacer traversal in an instance variable and allow for method chaining as well as changing the internal state of the traversal
